@@ -63,6 +63,22 @@ async function run(){
           }
         });
 
+        // creating blog_child_comments 
+
+        app.post("/blog_comments_child/", async (req, res) => {
+          try{
+            const{ blog_id, user_id, comment_text, parent_comment_id } = req.body;
+            const newComment = await pool.query(
+              "INSERT INTO blog_comments (blog_id, user_id, comment_text, parent_comment_id) VALUES($1, $2, $3, $4) RETURNING *",
+              [blog_id, user_id, comment_text, parent_comment_id]
+            );
+            res.json(newComment.rows[0]);
+          }
+          catch(err){
+            console.error(err.message);
+          }
+        });
+
         //get child_comments 
         app.get("/blog_comments_child/:id", async (req, res) => {
           try {

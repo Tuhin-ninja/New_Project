@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
+import ChildComment from './ChildComment';
 
 const SingleComment = ({ comment }) => {
     const { user } = useContext(AuthContext);
@@ -24,8 +25,9 @@ const SingleComment = ({ comment }) => {
     }
 
     const handleSubmit = async () => {
+        setIsReplying(false);
         if (user) {
-            fetch('http://localhost:5002/blog_comments', {
+            fetch('http://localhost:5002/blog_comments_child', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,30 +125,8 @@ const SingleComment = ({ comment }) => {
 
                                                         {
                                                             childComments.map(childComment => {
-                                                                return (
-                                                                    <div className="d-flex flex-start" style={{ paddingLeft: '100px' }}>
-                                                                        <img className="rounded-circle shadow-1-strong me-3"
-                                                                            src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
-                                                                            height="65" />
-                                                                        <div className="flex-grow-1 flex-shrink-1">
-                                                                            <div>
-                                                                                <div className="d-flex justify-content-between align-items-center">
-                                                                                    {/* {
-                                                                                        fetch(`http://localhost:5002/users/${childComment.user_id}`)
-                                                                                            .then(res => res.json())
-                                                                                            .then(data => setChildAuthor(data))
-                                                                                    } */}
-                                                                                    <p className="mb-1">
-                                                                                        {childAuthor.username} <span className="small">- {childComment.created_at}</span>
-                                                                                    </p>
-
-                                                                                </div>
-                                                                                <p className="small mb-0">
-                                                                                    {childComment.comment_text}
-                                                                                </p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                return (   
+                                                                    <ChildComment childComment = {childComment}/>
                                                                 )
                                                             })
                                                         }
