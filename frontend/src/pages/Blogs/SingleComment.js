@@ -5,6 +5,18 @@ import { AuthContext } from '../../context/AuthProvider';
 import ChildComment from './ChildComment';
 
 const SingleComment = ({ comment }) => {
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'Asia/Dhaka' // Set the timezone to Bangladesh Standard Time
+      };
+      let date = 'new Date();';
+     //date = comment.comment_date.toLocaleDateString("bn-BD", options);
+      if (comment.comment_date instanceof Date) {
+        date = comment.comment_date.toLocaleDateString("bn-BD", options);
+    }
+    
     const { user } = useContext(AuthContext);
     const [author, setAuthor] = useState('');
     const [childAuthor, setChildAuthor] = useState('');
@@ -25,6 +37,7 @@ const SingleComment = ({ comment }) => {
     }
 
     const handleSubmit = async () => {
+        
         setIsReplying(false);
         if (user) {
             fetch('http://localhost:5002/blog_comments_child', {
@@ -36,7 +49,8 @@ const SingleComment = ({ comment }) => {
                     blog_id: comment.blog_id,
                     user_id: user.id,
                     comment_text: commentBody,
-                    parent_comment_id: comment.comment_id
+                    parent_comment_id: comment.comment_id,
+                    //comment_date : new Date().toLocaleDateString("bn-bd", options)
                 }),
             })
                 .then(response => response.json())
@@ -48,12 +62,13 @@ const SingleComment = ({ comment }) => {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
+                
 
             const newComment = {
                 blog_id: comment.blog_id,
                 user_id: user.id,
                 comment_text: commentBody,
-                created_at: new Date().toISOString(),
+                comment_date: new Date().toLocaleDateString("bn-bd",options),
                 parent_comment_id: comment.comment_id
             };
             setCommentBody('');
@@ -99,7 +114,7 @@ const SingleComment = ({ comment }) => {
                                                     <div>
                                                         <div className="d-flex justify-content-between align-items-left">
                                                             <p className="mb-1">
-                                                                {author.username} <span className="small">- {comment.created_at}</span>
+                                                                {author.username} <span className="small">- {comment.comment_date}</span>
                                                             </p>
                                                             <div className="d-flex align-items-left">
                                                                 {

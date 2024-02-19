@@ -14,6 +14,13 @@ const Comment = ({ blog }) => {
             .then(data => setComments(data))
     }, []);
 
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'Asia/Dhaka' // Set the timezone to Bangladesh Standard Time
+      };
+
 
     const postComment = async () => {
         if (user) {
@@ -25,7 +32,8 @@ const Comment = ({ blog }) => {
                 body: JSON.stringify({
                     blog_id: blog.blog_id,
                     user_id: user.id,
-                    comment_text: commentBody
+                    comment_text: commentBody,
+                    comment_date : new Date().toLocaleDateString("bn-bd", options)
                 }),
             })
                 .then(response => response.json())
@@ -42,8 +50,7 @@ const Comment = ({ blog }) => {
                 blog_id: blog.blog_id,
                 user_id: user.id,
                 comment_text: commentBody,
-                created_at: new Date().toISOString(),
-                parent_comment_id: null
+                comment_date: new Date().toLocaleDateString("bn-bd", options),
             };
             setCommentBody('');
             setComments([...comments, newComment]);

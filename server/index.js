@@ -51,8 +51,9 @@ async function run(){
 
         // creating comment for a blog
         app.post("/blog_comments", async (req, res) => {
+          console.log('okay');
           try {
-            const { blog_id, user_id, comment_text } = req.body;
+            const { blog_id, user_id, comment_text} = req.body;
             const newComment = await pool.query(
               "INSERT INTO blog_comments (blog_id, user_id, comment_text) VALUES($1, $2, $3) RETURNING *",
               [blog_id, user_id, comment_text]
@@ -83,6 +84,7 @@ async function run(){
         app.get("/blog_comments_child/:id", async (req, res) => {
           try {
             const allChildComments = await pool.query("SELECT * FROM blog_comments WHERE parent_comment_id = $1", [req.params.id]);
+            console.log('childs');
             res.json(allChildComments.rows);
           } catch (err) {
             console.error(err.message);

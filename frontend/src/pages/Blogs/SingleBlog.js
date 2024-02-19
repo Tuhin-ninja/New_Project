@@ -11,12 +11,12 @@ const SingleBlog = () => {
     const user_id = user?.id;
     const [comments,setComments] = useState([]);
     const [loading, setLoading] = useState(true);
-    useEffect(()=>{
-        fetch(`http://localhost:5002/blog_comments/${blog.blog_id}`)
-        .then(res => res.json())
-        .then(data =>setComments(data))
-        .then(setLoading(false))
-    },[]);
+    // useEffect(()=>{
+    //     fetch(`http://localhost:5002/blog_comments/${blog.blog_id}`)
+    //     .then(res => res.json())
+    //     .then(data =>setComments(data))
+    //     .then(setLoading(false))
+    // },[]);
 
 
     return (
