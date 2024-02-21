@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthProvider';
-import { Link } from 'react-router-dom';
 import SingleComment from './SingleComment';
 
 const Comment = ({ blog }) => {
@@ -14,14 +13,6 @@ const Comment = ({ blog }) => {
             .then(data => setComments(data))
     }, []);
 
-    const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        timeZone: 'Asia/Dhaka' // Set the timezone to Bangladesh Standard Time
-      };
-
-
     const postComment = async () => {
         if (user) {
             fetch('http://localhost:5002/blog_comments', {
@@ -33,7 +24,7 @@ const Comment = ({ blog }) => {
                     blog_id: blog.blog_id,
                     user_id: user.id,
                     comment_text: commentBody,
-                    comment_date : new Date().toLocaleDateString("bn-bd", options)
+                    comment_date : new Date()
                 }),
             })
                 .then(response => response.json())
@@ -50,7 +41,7 @@ const Comment = ({ blog }) => {
                 blog_id: blog.blog_id,
                 user_id: user.id,
                 comment_text: commentBody,
-                comment_date: new Date().toLocaleDateString("bn-bd", options),
+                comment_date: new Date(),
             };
             setCommentBody('');
             setComments([...comments, newComment]);
@@ -72,18 +63,18 @@ const Comment = ({ blog }) => {
                         <div className="col-md-12 col-lg-10 col-xl-8">
                             <div className="card">
 
-                                <div className="small d-flex justify-content-start">
-                                    <a href="#!" className="d-flex align-items-center me-3">
+                                <div className="small flex items-center bg-indigo-100 p-3">
+                                    <a href="#!" className="me-3">
                                         <i className="far fa-thumbs-up me-2"></i>
-                                        <p className="mb-0">Like</p>
+                                        <p className="">Like</p>
                                     </a>
-                                    <a href="#!" className="d-flex align-items-center me-3">
+                                    <a href="#!" className=" me-3">
                                         <i className="far fa-comment-dots me-2"></i>
-                                        <p className="mb-0">Comment</p>
+                                        <p className="">Comment</p>
                                     </a>
-                                    <a href="#!" className="d-flex align-items-center me-3">
+                                    <a href="#!" className="me-3">
                                         <i className="fas fa-share me-2"></i>
-                                        <p className="mb-0">Share</p>
+                                        <p className="">Share</p>
                                     </a>
                                 </div>
                             </div>

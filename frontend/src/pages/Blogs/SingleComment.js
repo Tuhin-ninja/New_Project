@@ -13,9 +13,9 @@ const SingleComment = ({ comment }) => {
       };
       let date = 'new Date();';
      //date = comment.comment_date.toLocaleDateString("bn-BD", options);
-      if (comment.comment_date instanceof Date) {
-        date = comment.comment_date.toLocaleDateString("bn-BD", options);
-    }
+    //   if (comment.comment_date instanceof Date) {
+    //     date = comment.comment_date.toLocaleDateString("bn-BD", options);
+    // }
     
     const { user } = useContext(AuthContext);
     const [author, setAuthor] = useState('');
@@ -68,7 +68,7 @@ const SingleComment = ({ comment }) => {
                 blog_id: comment.blog_id,
                 user_id: user.id,
                 comment_text: commentBody,
-                comment_date: new Date().toLocaleDateString("bn-bd",options),
+                comment_date: new Date(),
                 parent_comment_id: comment.comment_id
             };
             setCommentBody('');

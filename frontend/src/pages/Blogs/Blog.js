@@ -12,7 +12,7 @@ const Blog = ({ blog }) => {
           </figure>
         <div className="card-body h-[300px] p-4">
           <h2 className="card-title text-3xl">{blog.blog_id}</h2>
-          <p>{blog.blog_content}</p>
+          <p>{blog.blog_title}</p>
           <div className="flex card-action justify-between mt-5">
             {/* <UpdateCourse key={course_id} course = {course}/> */}
             {/* <button onClick={()=>handleDelete(course_id)} className="w-24 btn bg-blue-300 btn-primary">Delete</button> */}
@@ -24,7 +24,7 @@ const Blog = ({ blog }) => {
             <span class="absolute left-0 pl-2.5 -translate-x-12 group-hover:translate-x-0 ease-out duration-200">
             <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </span>
-            <span class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">Explore</span>
+            <span class="relative w-full text-left transition-colors duration-200 ease-in-out group-hover:text-white">READ</span>
             </div></Link> 
             </div>
           </div>

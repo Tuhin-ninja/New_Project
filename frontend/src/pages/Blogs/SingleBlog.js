@@ -20,10 +20,12 @@ const SingleBlog = () => {
 
 
     return (
-    <div>
-        <p>{blog.blog_content}</p>
-        <p>{blog.blog_id}</p>
-        <p>{comments.length}</p>
+    <div className='p-5 w-[88%] m-auto'>
+      <div className='bg-indigo-50 p-5'>
+        <h2 className='text-3xl font-semibold text-indigo-950'>{blog?.blog_title}</h2>
+        <p className=''>{blog?.blog_content}</p>
+      </div>
+       
         <Comment blog={blog}/>
      
     </div>
